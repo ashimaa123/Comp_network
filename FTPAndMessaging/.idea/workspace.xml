@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd492bb5-a5fc-4f06-8660-e54ff02cb7ca" name="Default Changelist" comment="" />
+    <list default="true" id="bd492bb5-a5fc-4f06-8660-e54ff02cb7ca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FTPAndMessaging/MyClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FTPAndMessaging/MyClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FTPAndMessaging/MyServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FTPAndMessaging/MyServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FTPAndMessaging/TCP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FTPAndMessaging/TCP.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,22 +97,26 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="689" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog/-1001.-2160.1920.1065/0.0.1920.1050@0.0.1920.1050" timestamp="1587247787225" />
-    <state width="1877" height="257" key="GridCell.Tab.0.bottom" timestamp="1587415407375">
+    <state width="1877" height="257" key="GridCell.Tab.0.bottom" timestamp="1587510815706">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1877" height="257" key="GridCell.Tab.0.bottom/-1001.-2160.1920.1065/0.0.1920.1050@0.0.1920.1050" timestamp="1587415407375" />
-    <state width="1877" height="257" key="GridCell.Tab.0.center" timestamp="1587415407375">
+    <state width="1877" height="257" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587510815706" />
+    <state width="1877" height="257" key="GridCell.Tab.0.center" timestamp="1587510815706">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1877" height="257" key="GridCell.Tab.0.center/-1001.-2160.1920.1065/0.0.1920.1050@0.0.1920.1050" timestamp="1587415407375" />
-    <state width="1877" height="257" key="GridCell.Tab.0.left" timestamp="1587415407375">
+    <state width="1877" height="257" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587510815706" />
+    <state width="1877" height="257" key="GridCell.Tab.0.left" timestamp="1587510815706">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1877" height="257" key="GridCell.Tab.0.left/-1001.-2160.1920.1065/0.0.1920.1050@0.0.1920.1050" timestamp="1587415407375" />
-    <state width="1877" height="257" key="GridCell.Tab.0.right" timestamp="1587415407375">
+    <state width="1877" height="257" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587510815706" />
+    <state width="1877" height="257" key="GridCell.Tab.0.right" timestamp="1587510815706">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1877" height="257" key="GridCell.Tab.0.right/-1001.-2160.1920.1065/0.0.1920.1050@0.0.1920.1050" timestamp="1587415407375" />
+    <state width="1877" height="257" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587510815706" />
     <state x="461" y="167" key="SettingsEditor" timestamp="1587247938018">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
