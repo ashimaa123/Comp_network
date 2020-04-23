@@ -16,15 +16,26 @@ public class Client
         // receiving from server ( receiveRead  object)
         InputStream istream = socket.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+        new FTP();
 
         System.out.println("Ready. Type a message and press Enter to send. Press Enter to receive messages if you don't want to send. \n\n");
         //
 
-        String receiveMessage, sendMessage = "";
+        String receiveMessage, sendMessage, filename = "";
 
         while(true)
         {
+            System.out.println("Waiting for input:");
             sendMessage = input.readLine();  // keyboard reading
+            if (sendMessage.startsWith("sendFile")){
+                String [] command = sendMessage.split(" ");
+                if(command.length<2){
+                    System.out.println("No filename provided. Try again.");
+                    continue;
+                } else {
+                    filename = sendMessage.split(" ")[1];
+                }
+            }
             pwrite.println(sendMessage);       // sending to server
             pwrite.flush();                    // flush the data
             if(sendMessage.equals("Quit")|| sendMessage.equals("quit")){
@@ -47,6 +58,7 @@ public class Client
                 }
                 if(receiveMessage.equals("receiveFile")){
                     System.out.println("Receiving File...");
+                    FTP.receive(filename, socket);
                 }
                 else
                     System.out.println(receiveMessage); // displaying at DOS prompt

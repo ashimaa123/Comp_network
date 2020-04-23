@@ -20,6 +20,8 @@ public class Server
         // receiving from server ( receiveRead  object)
         InputStream istream = socket.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+        new FTP();
+
         System.out.println("Ready. Type a message and press Enter to send. Press Enter to receive messages if you don't want to send. \n\n");
         //
 
@@ -44,20 +46,22 @@ public class Server
                         pwrite.println("No filename provided. Try again.");
                         pwrite.flush();
                     } else {
-                        File file = new File((receiveMessage.split(" ", 2))[1]);
+                        File file = new File(command[1]);
                         if (!file.exists()) {
                             System.out.println("The file the client requested does not exists.");
                             pwrite.println("The requested file does not exist. Please try again.");
                             pwrite.flush();
                         } else {
-                            System.out.println("Sending file...");
+                            System.out.println("File exists. Sending... ");
                             pwrite.println("receiveFile");
                             pwrite.flush();
+                            FTP.send(command[1], socket);
                         }
                     }
                 }
             }
 
+            System.out.println("Waiting for input:");
             sendMessage = input.readLine();  // keyboard reading
             pwrite.println(sendMessage);       // sending to server
             pwrite.flush();                    // flush the data
