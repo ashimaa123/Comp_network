@@ -159,18 +159,18 @@ public class FTP
         if (checksum.equals(testchecksum))
         {
             System.out.println("Checksum matches.");
-            bw.write("Checksum matches.\n");
+            bw.write("Checksum matches.\n\n");
             bw.flush();
         }
         else
         {
             System.out.println("Checksum doesn't match.");
-            bw.write("Checksum doesn't match.\n");
+            bw.write("Checksum doesn't match.\n\n");
             bw.flush();
         }
         System.out.println(
                 "\"received " + filename + "\" saved successfully from "
-                        + socket.getRemoteSocketAddress());
+                        + socket.getRemoteSocketAddress() + "\n");
         bout.close();
     }
 
