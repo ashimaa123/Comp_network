@@ -1,0 +1,13 @@
+TCP takes care of online, ordering, acknowledgment and message corruption.
+
+Normal messages will be delivered perfectly with just the TCP header.
+
+New Message Format for File Transfer-
+
+File transfer packet size: 1000 (File is split into pieces)
+File Transfer Timeout: 500000000
+Header: 
+
+sequenceNumber: main identifier
+checksum: checksum value
+body: main data
