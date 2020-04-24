@@ -17,13 +17,14 @@ public class Client
     // receiving from server ( receiveRead  object)
     InputStream istream = socket.getInputStream();
     BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-    String receiveMessage, sendMessage, filename = "";
+    String receiveMessage="", sendMessage="", filename = "";
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     public Client() throws IOException {
     }
 
     void send(){
-        while(true) {
+        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
             try {
                 sendMessage = input.readLine();  // keyboard reading
                 if (sendMessage.startsWith("sendFile")) {
@@ -42,7 +43,8 @@ public class Client
                     istream.close();
                     input.close();
                     socket.close();
-                    break;
+                    executorService.shutdownNow();
+                    return;
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -52,7 +54,7 @@ public class Client
 
     void receive(){
         new FTP();
-        while(true) {
+        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
             try {
                 if ((receiveMessage = receiveRead.readLine()) != null) //receive from server
                 {
@@ -62,7 +64,8 @@ public class Client
                         istream.close();
                         input.close();
                         socket.close();
-                        break;
+                        executorService.shutdownNow();
+                        return;
                     }
                     if (receiveMessage.equals("receiveFile")) {
                         System.out.println("Receiving File...");
@@ -77,12 +80,9 @@ public class Client
     }
 
     public void execute(){
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-
         // method reference introduced in Java 8
         executorService.submit(this::send);
         executorService.submit(this::receive);
-
         // close executorService
         executorService.shutdown();
     }

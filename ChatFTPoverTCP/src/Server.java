@@ -19,13 +19,14 @@ public class Server
     // receiving from server ( receiveRead  object)
     InputStream istream = socket.getInputStream();
     BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     public Server() throws IOException {
     }
 
     void receive(){
         new FTP();
-        while(true) {
+        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
             try {
                 if ((receiveMessage = receiveRead.readLine()) != null) //receive from server
                 {
@@ -34,7 +35,8 @@ public class Server
                         istream.close();
                         input.close();
                         socket.close();
-                        break;
+                        executorService.shutdownNow();
+                        return;
                     }
                     System.out.println(receiveMessage); // displaying at DOS prompt
                     if (receiveMessage.startsWith("sendFile")) {
@@ -65,7 +67,7 @@ public class Server
     }
 
     void send() {
-        while(true){
+            while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
             try {
                 sendMessage = input.readLine();  // keyboard reading
                 pwrite.println(sendMessage);       // sending to server
@@ -75,7 +77,8 @@ public class Server
                     istream.close();
                     input.close();
                     socket.close();
-                    break;
+                    executorService.shutdownNow();
+                    return;
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -84,7 +87,6 @@ public class Server
     }
 
     public void execute(){
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         // method reference introduced in Java 8
         executorService.submit(this::send);
