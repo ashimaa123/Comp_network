@@ -89,7 +89,7 @@ public class Client
 
     public static void main(String[] args) throws Exception
     {
-        System.out.println("Ready. Type a message and press Enter to send. Press Enter to receive messages if you don't want to send. \n\n");
+        System.out.println("Ready. Type a message and press Enter to send.\nTo send a file use the command \"sendFile filename\"\n\n");
         //
         new Client().execute();
     }

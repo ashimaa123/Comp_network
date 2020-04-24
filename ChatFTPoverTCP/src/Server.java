@@ -102,7 +102,7 @@ public class Server
         System.out.println("Server running...");
         System.out.println("Client connected.\n\n");
 
-        System.out.println("Ready. Type a message and press Enter to send. Press Enter to receive messages if you don't want to send. \n\n");
+        System.out.println("Ready. Type a message and press Enter to send. \n\n");
         //
 
         new Server().execute();

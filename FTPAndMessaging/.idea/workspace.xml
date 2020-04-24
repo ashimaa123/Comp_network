@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd492bb5-a5fc-4f06-8660-e54ff02cb7ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/rawImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/receivedTCP rawImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/receivedTCP text.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/src/FTP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/src/Header.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/text.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatFTPoverTCP/out/production/ChatFTPoverTCP/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/out/production/ChatFTPoverTCP/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatFTPoverTCP/out/production/ChatFTPoverTCP/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/out/production/ChatFTPoverTCP/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatFTPoverTCP/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatFTPoverTCP/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatFTPoverTCP/src/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="bd492bb5-a5fc-4f06-8660-e54ff02cb7ca" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
