@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 
 public class Server
 {
-    private String receiveMessage, sendMessage = "";
-    ServerSocket server = new ServerSocket(3000);
+    private String receiveMessage = "", sendMessage = "";
+    ServerSocket server = new ServerSocket(3100);
     Socket socket = server.accept( );
     // reading from keyboard (keyRead object)
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -26,38 +26,43 @@ public class Server
 
     void receive(){
         new FTP();
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 if ((receiveMessage = receiveRead.readLine()) != null) //receive from server
                 {
-                    if (receiveMessage.equals("Quit") || receiveMessage.equals("quit")) {
+                    if (receiveMessage.equals("End") || receiveMessage.equals("end")) {
+                        System.out.println("Client closed connection. Press Enter to stop the server.");
                         ostream.close();
                         istream.close();
                         input.close();
                         socket.close();
                         executorService.shutdownNow();
-                        return;
+                        System.exit(0);
                     }
-                    System.out.println(receiveMessage); // displaying at DOS prompt
-                    if (receiveMessage.startsWith("sendFile")) {
+                    if (receiveMessage.startsWith("requestFile")) {
                         String[] command = (receiveMessage.split(" ", 2));
                         if (command.length < 2) {
-                            System.out.println("No filename provided.");
-                            pwrite.println("No filename provided. Try again.");
+                            System.out.println("NO FILENAME provided.");
+                            pwrite.println("NO FILENAME provided. Try again.");
                             pwrite.flush();
                         } else {
                             File file = new File(command[1]);
                             if (!file.exists()) {
-                                System.out.println("The file the client requested does not exists.");
-                                pwrite.println("The requested file does not exist. Please try again.");
+                                System.out.println("FILE DOES NOT EXIST.");
+                                pwrite.println("FILE DOES NOT EXIST . Please try again.");
                                 pwrite.flush();
                             } else {
-                                System.out.println("File exists. Sending... ");
+                                System.out.println("FILE FOUND, get ready. Sending... ");
                                 pwrite.println("receiveFile");
                                 pwrite.flush();
                                 FTP.send(command[1], socket);
                             }
                         }
+                    }
+
+                    else{
+                        System.out.println("THIS IS CHAT DATA");
+                        System.out.println(receiveMessage); // displaying at DOS prompt
                     }
                 }
             } catch (Exception e) {
@@ -67,18 +72,18 @@ public class Server
     }
 
     void send() {
-            while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))){
             try {
-                sendMessage = input.readLine();  // keyboard reading
+                sendMessage = input.readLine() ;  // keyboard reading
                 pwrite.println(sendMessage);       // sending to server
                 pwrite.flush();                    // flush the data
-                if (sendMessage.equals("Quit") || sendMessage.equals("quit")) {
+                System.out.println("MESSAGE SUCCESSFULLY SENT");
+                if (sendMessage.equals("End") || sendMessage.equals("end")) {
                     ostream.close();
                     istream.close();
                     input.close();
-                    socket.close();
                     executorService.shutdownNow();
-                    return;
+                    System.exit(0);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -87,6 +92,7 @@ public class Server
     }
 
     public void execute(){
+
 
         // method reference introduced in Java 8
         executorService.submit(this::send);
@@ -102,10 +108,9 @@ public class Server
         //DECLARATIONS
         System.out.println("Preparing...");
         System.out.println("Server running...");
-        System.out.println("Client connected.\n\n");
+        System.out.println("CONNECTION ESTABLISHED.\n\n");
 
-        System.out.println("Ready. Type a message and press Enter to send. \n\n");
-        //
+        System.out.println("Ready. To send a message, type the message and press 'Enter' to send. To request a file, type 'requestFile' and the file name. \n\n");        //
 
         new Server().execute();
     }

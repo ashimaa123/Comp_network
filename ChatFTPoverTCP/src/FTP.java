@@ -102,6 +102,7 @@ public class FTP
                 }
             }
         }
+        System.out.println("THIS IS FILE DATA.");
         System.out.println("\"" + filename + "\" sent successfully to "
                 + socket.getRemoteSocketAddress());
         oos.writeObject(null);
@@ -142,7 +143,7 @@ public class FTP
                 {
                     ack = buffer.get(buffer.size() - 1).num + packetsize;
                 }
-                System.out.println("\t\t\t\t\t Sending ACK #" + ack);
+                System.out.println("\t\t\t\t\t Send ACK #" + ack);
             }
             bw.write("ACK " + ack + "\n");
             bw.flush();
@@ -164,12 +165,12 @@ public class FTP
         }
         else
         {
-            System.out.println("Checksum doesn't match.");
-            bw.write("Checksum doesn't match.\n\n");
+            System.out.println("Checksum does not match.");
+            bw.write("Checksum does not match.\n\n");
             bw.flush();
         }
         System.out.println(
-                "\"received " + filename + "\" saved successfully from "
+                "\"Received " + filename + "\" saved successfully from "
                         + socket.getRemoteSocketAddress() + "\n");
         bout.close();
     }

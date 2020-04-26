@@ -7,7 +7,7 @@ public class Client
 {
     //DECLARATIONS
 
-    Socket socket = new Socket("127.0.0.1", 3000);
+    Socket socket = new Socket("127.0.0.1", 3100);
     // reading from keyboard (keyRead object)
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
     // sending to client (pwrite object)
@@ -17,34 +17,36 @@ public class Client
     // receiving from server ( receiveRead  object)
     InputStream istream = socket.getInputStream();
     BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-    String receiveMessage="", sendMessage="", filename = "";
     ExecutorService executorService = Executors.newFixedThreadPool(2);
+    String receiveMessage = "", sendMessage = "", filename = "";
 
     public Client() throws IOException {
     }
 
     void send(){
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 sendMessage = input.readLine();  // keyboard reading
-                if (sendMessage.startsWith("sendFile")) {
+                if (sendMessage.startsWith("requestFile")) {
                     String[] command = sendMessage.split(" ");
                     if (command.length < 2) {
-                        System.out.println("No filename provided. Try again.");
+                        System.out.println("NO FILENAME provided. Try again.");
                         continue;
                     } else {
                         filename = sendMessage.split(" ")[1];
                     }
                 }
+
                 pwrite.println(sendMessage);       // sending to server
                 pwrite.flush();                    // flush the data
-                if (sendMessage.equals("Quit") || sendMessage.equals("quit")) {
+                System.out.println("MESSAGE SUCCESSFULLY SENT");
+                if (sendMessage.equals("End") || sendMessage.equals("end")) {
                     ostream.close();
                     istream.close();
                     input.close();
                     socket.close();
                     executorService.shutdownNow();
-                    return;
+                    System.exit(0);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -54,24 +56,29 @@ public class Client
 
     void receive(){
         new FTP();
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 if ((receiveMessage = receiveRead.readLine()) != null) //receive from server
                 {
-                    if (receiveMessage.equals("Quit") || receiveMessage.equals("quit")) {
+                    if (receiveMessage.equals("End") || receiveMessage.equals("end")) {
                         System.out.println(receiveMessage);
                         ostream.close();
                         istream.close();
                         input.close();
                         socket.close();
+                        System.out.println("Server closed connection. Press enter to stop the server.");
                         executorService.shutdownNow();
-                        return;
+                        System.exit(0);
                     }
                     if (receiveMessage.equals("receiveFile")) {
                         System.out.println("Receiving File...");
                         FTP.receive(filename, socket);
-                    } else
+                    }
+                    else {
+                        System.out.println("THIS IS CHAT DATA");
                         System.out.println(receiveMessage); // displaying at DOS prompt
+
+                    }
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -80,17 +87,21 @@ public class Client
     }
 
     public void execute(){
+
         // method reference introduced in Java 8
         executorService.submit(this::send);
         executorService.submit(this::receive);
+
         // close executorService
         executorService.shutdown();
     }
 
     public static void main(String[] args) throws Exception
     {
-        System.out.println("Ready. Type a message and press Enter to send.\nTo send a file use the command \"sendFile filename\"\n\n");
-        //
+        System.out.println("CONNECT ACKNOWLEDGMENT");
+
+        System.out.println("Ready. To send a message, type the message and press 'Enter' to send. To request a file, type 'requestFile' and the file name. \n\n");
+
         new Client().execute();
     }
 }
