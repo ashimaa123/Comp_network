@@ -1,29 +1,65 @@
+/*
+ * Filename     Client.java
+ * Date         5/1/2020
+ * Author       Ashima Soni, Mira Jambusaria
+ * Email        ashima.soni@utdallas.edu mmj170530@utdallas.edu
+ * Course       CE 4390.502 Spring 2020
+ * Version      1.0
+ * Copyright    2020, All Rights Reserved
+ *
+ * Description
+ *
+ * This is the file that creates the Client side connection
+ *
+ */
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/*
+ * Class Client
+ * Description:         Handles all the client  side functions
+ */
 public class Client
 {
     //DECLARATIONS
 
-    Socket socket = new Socket("127.0.0.1", 3000);
-    // reading from keyboard (keyRead object)
+    /* create the socket */
+    Socket socket = new Socket("127.0.0.1", 3020);
+
+    //DECLARING CLIENTSIDE CONSTANTS
+    /* read input from the keyboard */
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-    // sending to client (pwrite object)
+
+    /* create a stream to send output to the server */
     OutputStream ostream = socket.getOutputStream();
+    /* Prints formatted representations of objects to a text-output stream - useful for displaying messages */
     PrintWriter pwrite = new PrintWriter(ostream, true);
 
-    // receiving from server ( receiveRead  object)
+    /* receiving from server */
     InputStream istream = socket.getInputStream();
+    /* read input from the server */
     BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+
+
     String receiveMessage="", sendMessage="", filename = "";
+
+    /* allows us to execute a class in an asynchronous way */
     ExecutorService executorService = Executors.newFixedThreadPool(2);
 
+    /*
+     * Constructor for the Client Class
+     */
     public Client() throws IOException {
     }
-    //this function sends messages to the server
+
+    /*
+     *void send ()
+     *Description:          Function to send messages to Server
+     */
     void send(){
+        /* continue to send messages until server writes "quit" or "Quit" */
         while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
             try {
                 //read message from input
@@ -63,6 +99,10 @@ public class Client
         }
     }
 
+    /*
+     *void receive ()
+     *Description:          Function to process incoming messages from Server
+     */
     void receive(){
         //made FTP object for receiving file
         new FTP();
@@ -100,24 +140,30 @@ public class Client
         }
     }
 
+    /*
+     *void execute ()
+     *Description:          Allows for the Client side to be run asynchronously
+     */
     public void execute(){
-        // method reference introduced in Java 8
-        //execute both send and receive at once in two threads
+
+        // activate the send function
         executorService.submit(this::send);
+
+        // activate the receive function
         executorService.submit(this::receive);
+
         // close executorService
         executorService.shutdown();
     }
 
+    /*
+     *Main
+     *Description:          method that executes when we run Client.Java
+     */
     public static void main(String[] args) throws Exception
     {
-//        System.out.print("Enter IP Address: ");
-//        String ipAddress = input.readLine();
-//        System.out.println("");
-//        System.out.print("Enter Port Number: ");
-//        String port = input.readLine();
-//        System.out.println((""));
         System.out.println("Ready. Type a message and press Enter to send.\nTo send a file use the command \"requestFile filename\"\nUse 'quit' to end\n\n");
+        //create the connection and run it asynchronously
         new Client().execute();
     }
 }
