@@ -35,31 +35,42 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/*
+ *class FTP 
+ *Description: this class handles the file transfer protocols 
+ */
 public class FTP
 {
+    /* hardcode packet size */ 
     private static final int packetsize = 1000;
+    /* hardcode timeout */ 
     private static final long timeout = 500000000;
+    /* hardcode starttime */ 
     private static long starttime = 0;
 
-    //this function calculates the checksum of the file
+    //use this to cacluate checksum 
     public static String getChecksum(String filename)
             throws NoSuchAlgorithmException, IOException
     {
-        //read the file
+        /* create a file to hold the filename */ 
         File file = new File(filename);
         FileInputStream fis = new FileInputStream(file);
-        //use md5 to make a checksum
+        
+        /* use to verify the file */ 
         MessageDigest md5Digest = MessageDigest.getInstance("MD5");
+        
         byte[] byteArray = new byte[1024];
         int byteCount = 0;
-
+        
+        /* count through the number of bytes  and read the file*/ 
         while ((byteCount = fis.read(byteArray)) != -1)
         {
             md5Digest.update(byteArray, 0, byteCount);
         }
         fis.close();
         byte[] bytes = md5Digest.digest();
-        //write checksum
+        
+        /*build the checksum */ 
         StringBuilder sb = new StringBuilder();
 
         for(int i=0; i<bytes.length; i++)
@@ -69,14 +80,22 @@ public class FTP
 
         return sb.toString();
     }
-    //this function is used to send a file over sockets
+    
+    /*
+     *void send 
+     *Description:          The purpose of this function is to send the file from the Server to the Clinet 
+     */
     public static void send(String filename, Socket socket)
             throws IOException, NoSuchAlgorithmException
     {
-        //open the file and required streams
+        /*create and open the file  */ 
         File file = new File(filename);
+        /* create a new output stream */ 
         OutputStream outputStream = socket.getOutputStream();
+        /* object output stream */ 
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+        
+        /* create input object stream to read through the project  */ 
         InputStream inputStream = socket.getInputStream();
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -95,11 +114,11 @@ public class FTP
         starttime = System.nanoTime();
 
         System.out.println("Sending " + filename);
-        //start sending the file
-        //if sequence = endsequence, reached the end
+        /* begin sending file */
+        
         while (sequence != endsequence)
         {
-            //packet size remains PACKETSIZE except for the last packet for that file, which can be smaller
+            /* the packet size will remain consistant */ 
             size = packetsize;
             if (endsequence - sequence >= size)
                 sequence += size;
@@ -108,40 +127,45 @@ public class FTP
                 size = (int) (endsequence - sequence);
                 sequence = endsequence;
             }
-            //make a packet to send
+            /* create the packet */ 
             byte[] packet = new byte[size];
             bufferedInputStream.read(packet, 0, size);
-            //add the packet to a header format
+            /* append the packet to the header*/ 
             Header testheader = new Header(packet, sequence, checksum);
 
-            //add the header+packet to the buffer
+            /* add to the buffer */ 
             buffer.add(testheader);
 
             System.out.println("Sending packet #" + testheader.num);
-            //write the object to socket(send it)
+            
             objectOutputStream.writeObject(testheader);
 
-            //check for ACKS. (wait for a message)
+            /* wait for acknowledgement */ 
             if ((message = bufferedReader.readLine()) != null)
             {
-                //if ACK is sent, print it
+                /* print out acknoledgement */  
                 System.out.println("\t\t\t\t\t\"" + message + "\"");
-                //if ACK is sent too late, TIMEOUT
+                /* if ACK is not returned within timeout, send timeout message */ 
                 if ((System.nanoTime() - starttime) > timeout)
                 {
                     timeout(message, testheader.num, buffer, objectOutputStream, socket);
                 }
             }
         }
-        //file is sent
+        
+        /* send file  */ 
         System.out.println("\"" + filename + "\" sent successfully to "
                 + socket.getRemoteSocketAddress());
+  
         objectOutputStream.writeObject(null);
         bufferedInputStream.close();
         buffer.clear();
     }
 
-    //this function is used to receive a file at the client when a server is sending it
+    /*
+     *void receive 
+     *Description:          The purpose of this function is to receive the file from the Client to Server 
+     */
     public static void receive(String filename, Socket socket)
             throws IOException, ClassNotFoundException, NoSuchAlgorithmException
     {
