@@ -25,14 +25,14 @@ public class Client
 {
     //DECLARATIONS
 
-    /* create the socket */
+    /* hardcoding IP address and host number to creates the socket */
     Socket socket = new Socket("127.0.0.1", 3020);
 
     //DECLARING CLIENTSIDE CONSTANTS
-    /* read input from the keyboard */
+    /* read user input */
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-    /* create a stream to send output to the server */
+    /* output stream to server */
     OutputStream ostream = socket.getOutputStream();
     /* Prints formatted representations of objects to a text-output stream - useful for displaying messages */
     PrintWriter pwrite = new PrintWriter(ostream, true);
@@ -59,7 +59,7 @@ public class Client
      *Description:          Function to send messages to Server
      */
     void send(){
-        /* continue to send messages until server writes "end" or "End" */
+        // message to end connection (type End) 
         while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 //read message from input
