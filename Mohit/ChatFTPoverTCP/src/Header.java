@@ -20,7 +20,7 @@ public class Header implements Serializable
     private static final long serialVersionUID = 1L;
 
     byte[] payload = null;
-    long number = 0;
+    long num = 0;
     String checksum = null;
 
     /*
@@ -29,7 +29,7 @@ public class Header implements Serializable
     public Header(byte[] data, long sequence, String chksm)
     {
         payload = data;
-        number = sequence;
+        num = sequence;
         checksum = chksm;
     }
 
@@ -40,10 +40,10 @@ public class Header implements Serializable
     {
         public int compare(Header h1, Header h2)
         {
-            int number1 = (int) h1.number;
-            int num2 = (int) h2.number;
+            int num1 = (int) h1.num;
+            int num2 = (int) h2.num;
 
-            return (number1 - number2);
+            return (num1 - num2);
         }
     };
 }
