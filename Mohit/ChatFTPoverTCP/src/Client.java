@@ -59,8 +59,8 @@ public class Client
      *Description:          Function to send messages to Server
      */
     void send(){
-        /* continue to send messages until server writes "quit" or "Quit" */
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        /* continue to send messages until server writes "end" or "End" */
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 //read message from input
                 sendMessage = input.readLine();  // keyboard reading
@@ -85,7 +85,7 @@ public class Client
                 }
                 System.out.println("MESSAGE SUCCESSFULLY SENT\n");
                 //close connection
-                if (sendMessage.equals("Quit") || sendMessage.equals("quit")) {
+                if (sendMessage.equals("End") || sendMessage.equals("end")) {
                     ostream.close();
                     istream.close();
                     input.close();
@@ -106,13 +106,13 @@ public class Client
     void receive(){
         //made FTP object for receiving file
         new FTP();
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 //read from network
                 if ((receiveMessage = receiveRead.readLine()) != null) //receive from server
                 {
                     //close connection
-                    if (receiveMessage.equals("Quit") || receiveMessage.equals("quit")) {
+                    if (receiveMessage.equals("End") || receiveMessage.equals("end")) {
                         System.out.println("Client closed connection. Press Enter to stop the server.");
                         ostream.close();
                         istream.close();
