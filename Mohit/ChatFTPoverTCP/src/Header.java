@@ -11,6 +11,7 @@
  *
  * This is the file that holds the headers that we will use to send our packets
  */
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -23,7 +24,7 @@ public class Header implements Serializable
     String checksum = null;
 
     /*
-     * header object with a byte array, a sequence number, checksum string
+     * header object with a byte array, a sequence number, and a checksum string
      */
     public Header(byte[] data, long sequence, String chksm)
     {
@@ -33,7 +34,7 @@ public class Header implements Serializable
     }
 
     /*
-     * Compared one header object with another header object by taking the difference between the two
+     * Compares one header object with another header object by taking the difference between the two sequence numbers
      */
     public static Comparator<Header> compareheader = new Comparator<Header>()
     {
