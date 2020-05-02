@@ -162,8 +162,8 @@ public class Client
      */
     public static void main(String[] args) throws Exception
     {
-        System.out.println("Ready. Type a message and press Enter to send.\nTo send a file use the command \"requestFile filename\"\nUse 'quit' to end\n\n");
-        //create the connection and run it asynchronously
+        System.out.println("Ready! To send a message, type the message and press 'Enter' to send..\nTo send a file use the command \"requestFile filename\"\nUse 'quit' to end\n\n");
+        
         new Client().execute();
     }
 }
