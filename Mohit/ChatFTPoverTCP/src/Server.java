@@ -63,12 +63,12 @@ public class Server
         /* handle incoming file messages */
         new FTP();
         /* we continue to run this function until Server sends "end" or "End" */
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 if ((receiveMessage = receiveRead.readLine()) != null)  //receive from client
                 {
                     /* if the client has requested to end the connection */
-                    if (receiveMessage.equals("Quit") || receiveMessage.equals("quit")) {
+                    if (receiveMessage.equals("End") || receiveMessage.equals("end")) {
                         System.out.println("Client closed connection. Press Enter to stop the server.");
                         ostream.close();
                         istream.close();
@@ -134,7 +134,7 @@ public class Server
      */
     void send() {
         /* continue to send messages until server writes "end" or "End" */
-        while(!(sendMessage.equals("Quit") || sendMessage.equals("quit"))) {
+        while(!(sendMessage.equals("end") || sendMessage.equals("End"))) {
             try {
                 // read the message from keyboard
                 sendMessage = input.readLine();
