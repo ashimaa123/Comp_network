@@ -1,3 +1,22 @@
+
+/*
+ * Filename     FTP.java
+ * Date         5/1/2020
+ * Author       Ashima Soni, Mira Jambusaria
+ * Email        ashima.soni@utdallas.edu mmj170530@utdallas.edu
+ * Course       CE 4390.502 Spring 2020
+ * Version      1.0
+ * Copyright    2020, All Rights Reserved
+ *
+ * Description
+ *
+ * This is the file that handles the File Transfer Protocol
+ *
+ */
+
+
+
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -21,8 +40,11 @@ import java.util.Random;
 
 public class FTP
 {
+    //size of each packet we send
     private static final int packetsize = 1000;
+    //time we wait for timeout
     private static final long timeout = 500000000;
+    //the time we start counting at
     private static long starttime = 0;
 
     public static String getChecksum(String filename)
@@ -110,7 +132,9 @@ public class FTP
         buffer.clear();
     }
 
-
+    /*
+     * This function is used to handle receiving files on the client side
+     */
     public static void receive(String filename, Socket socket)
             throws IOException, ClassNotFoundException, NoSuchAlgorithmException
     {

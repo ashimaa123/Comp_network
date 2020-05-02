@@ -1,3 +1,17 @@
+/*
+ * Filename     Client.java
+ * Date         5/1/2020
+ * Author       Ashima Soni, Mira Jambusaria
+ * Email        ashima.soni@utdallas.edu mmj170530@utdallas.edu
+ * Course       CE 4390.502 Spring 2020
+ * Version      1.0
+ * Copyright    2020, All Rights Reserved
+ *
+ * Description
+ *
+ * This is the file that creates the Client side connection
+ *
+ */
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.ExecutorService;
@@ -6,7 +20,6 @@ import java.util.concurrent.Executors;
 public class Client
 {
     //DECLARATIONS
-
     Socket socket = new Socket("127.0.0.1", 3100);
     // reading from keyboard (keyRead object)
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
