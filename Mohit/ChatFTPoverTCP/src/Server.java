@@ -27,8 +27,9 @@ public class Server
 {
     private String receiveMessage, sendMessage = "";
 
-    /* establish the connection */
+    //establish connection by hardcoding port number
     ServerSocket server = new ServerSocket(3020);
+    
     /* create the socket */
     Socket socket = server.accept( );
 
@@ -36,7 +37,7 @@ public class Server
     /* read input from the keyboard */
     static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-    /* create a stream to send output to the user */
+    /* output stream */
     OutputStream ostream = socket.getOutputStream();
     /* Prints formatted representations of objects to a text-output stream - useful for displaying messages */
     PrintWriter pwrite = new PrintWriter(ostream, true);
@@ -62,14 +63,14 @@ public class Server
     void receive(){
         /* handle incoming file messages */
         new FTP();
-        /* we continue to run this function until Server sends "end" or "End" */
+        /* ends connection if Server sends "end" or "End" */
         while(!(sendMessage.equals("End") || sendMessage.equals("end"))) {
             try {
                 if ((receiveMessage = receiveRead.readLine()) != null)  //receive from client
                 {
-                    /* if the client has requested to end the connection */
+                    /* if client requests to end connection */
                     if (receiveMessage.equals("End") || receiveMessage.equals("end")) {
-                        System.out.println("Client closed connection. Press Enter to stop the server.");
+                        System.out.println("Client has closed connection. Press Enter to stop the server.");
                         ostream.close();
                         istream.close();
                         input.close();
