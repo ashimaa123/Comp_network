@@ -1,3 +1,19 @@
+
+/*
+ * Filename     FTP.java
+ * Date         5/1/2020
+ * Author       Ashima Soni, Mira Jambusaria
+ * Email        ashima.soni@utdallas.edu mmj170530@utdallas.edu
+ * Course       CE 4390.502 Spring 2020
+ * Version      1.0
+ * Copyright    2020, All Rights Reserved
+ *
+ * Description
+ *
+ * This is the file that handles the File Transfer Protocol
+ *
+ */
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
